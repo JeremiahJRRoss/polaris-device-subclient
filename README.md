@@ -82,8 +82,9 @@ python3 --version
 ## 3. Installation
 
 ```bash
+cd /opt
 git clone https://github.com/JeremiahJRRoss/polaris-device-subclient.git
-cd polaris-pipeline/scripts
+cd /opt/polaris-device-subclient/scripts
 sudo chmod +x install.sh
 sudo ./install.sh
 ```
@@ -687,7 +688,7 @@ If you've enabled `logging.file.enabled` but no file appears:
 ### Updating
 
 ```bash
-cd /path/to/polaris-pipeline
+cd /opt/polaris-device-subclient
 git pull
 sudo ./scripts/install.sh
 sudo systemctl restart polaris-device-subclient
