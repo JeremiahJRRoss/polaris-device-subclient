@@ -29,7 +29,7 @@
 
 Polaris Device Subclient is a small, focused application that connects to Point One Navigation's Polaris API, listens for device location state changes in real time, and writes them as structured NDJSON files (one JSON object per line) to a local directory.
 
-It is designed to be paired with a log collection agent — such as Filebeat, Splunk Universal Forwarder, or Cribl Edge — which tails the output files and delivers data to your SIEM, data lake, or wherever it needs to go.
+It is designed to be paired with a log collection agent; such as Cribl Edge, Vector, Elastic Filebeat, or Splunk Universal Forwarder; which which will tail the output files and forwarded that data to a data lake, system of analysis or aggregator. 
 
 **What Polaris Device Subclient does:**
 
