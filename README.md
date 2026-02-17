@@ -82,7 +82,7 @@ python3 --version
 ## 3. Installation
 
 ```bash
-git clone https://github.com/yourorg/polaris-pipeline.git
+git clone https://github.com/JeremiahJRRoss/polaris-device-subclient.git
 cd polaris-pipeline/scripts
 sudo chmod +x install.sh
 sudo ./install.sh
