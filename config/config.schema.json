@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Polaris Device Subclient Configuration",
+  "type": "object",
+  "required": ["polaris"],
+  "properties": {
+    "instance_id": {
+      "type": "string",
+      "description": "Unique identifier for this writer instance."
+    },
+    "polaris": {
+      "type": "object",
+      "required": ["api_key"],
+      "properties": {
+        "api_url": {
+          "type": "string",
+          "description": "Polaris GraphQL subscription endpoint."
+        },
+        "api_key": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Polaris Personal Access Token."
+        },
+        "subscription": {
+          "type": "string"
+        },
+        "reconnect": {
+          "type": "object",
+          "properties": {
+            "initial_delay_ms": { "type": "integer", "minimum": 100 },
+            "max_delay_ms": { "type": "integer", "minimum": 1000 },
+            "backoff_multiplier": { "type": "integer", "minimum": 1 },
+            "jitter_pct": { "type": "integer", "minimum": 0, "maximum": 100 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "filter": {
+      "type": "object",
+      "properties": {
+        "drop_states": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "drop_device_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "keep_device_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "output": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "object",
+          "properties": {
+            "output_dir": { "type": "string" },
+            "file_prefix": { "type": "string" },
+            "rotation": {
+              "type": "object",
+              "properties": {
+                "interval_seconds": { "type": "integer", "minimum": 1 },
+                "max_size_bytes": { "type": "integer", "minimum": 1024 }
+              },
+              "additionalProperties": false
+            },
+            "flush": {
+              "type": "object",
+              "properties": {
+                "interval_ms": { "type": "integer", "minimum": 100 },
+                "every_n_events": { "type": "integer", "minimum": 1 }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["debug", "info", "warn", "error"]
+        },
+        "format": { "type": "string" },
+        "output": { "type": "string" },
+        "file": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "path": { "type": "string" },
+            "max_size_bytes": { "type": "integer", "minimum": 1024 },
+            "backup_count": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "redact_patterns": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

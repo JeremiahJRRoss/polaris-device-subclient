@@ -1,0 +1,40 @@
+[Unit]
+Description=Polaris Device Location State Change Writer
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=polaris
+Group=polaris
+
+ExecStart=/opt/polaris-device-subclient/venv/bin/polaris-device-subclient \
+    --config /etc/polaris/config.json \
+    --output file
+
+EnvironmentFile=/etc/polaris/polaris-device-subclient.env
+
+Restart=on-failure
+RestartSec=5
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=polaris-device-subclient
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+ReadWritePaths=/var/lib/polaris/data /var/log/polaris-device-subclient
+ReadOnlyPaths=/etc/polaris
+LimitNOFILE=65536
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target

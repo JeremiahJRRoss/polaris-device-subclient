@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "polaris-device-subclient"
+version = "0.5.0"
+description = "Polaris API device state change to NDJSON file output"
+requires-python = ">=3.11"
+dependencies = [
+    "orjson>=3.9",
+    "websockets>=12.0",
+    "click>=8.1",
+    "cryptography>=41.0",
+    "jsonschema>=4.20",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "ruff>=0.1",
+]
+
+[project.scripts]
+polaris-device-subclient = "polaris_device_subclient.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

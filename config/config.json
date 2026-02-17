@@ -1,0 +1,49 @@
+{
+  "instance_id": "writer-01",
+
+  "polaris": {
+    "api_url": "${POLARIS_API_URL:-wss://graphql.pointonenav.com/subscriptions}",
+    "api_key": "${POLARIS_API_KEY}",
+    "subscription": "devices",
+    "reconnect": {
+      "initial_delay_ms": 1000,
+      "max_delay_ms": 60000,
+      "backoff_multiplier": 2,
+      "jitter_pct": 20
+    }
+  },
+
+  "filter": {
+    "drop_states": ["undefined", "error"],
+    "drop_device_ids": [],
+    "keep_device_ids": []
+  },
+
+  "output": {
+    "file": {
+      "output_dir": "/var/lib/polaris/data",
+      "file_prefix": "events",
+      "rotation": {
+        "interval_seconds": 600,
+        "max_size_bytes": 52428800
+      },
+      "flush": {
+        "interval_ms": 1000,
+        "every_n_events": 50
+      }
+    }
+  },
+
+  "logging": {
+    "level": "info",
+    "format": "json",
+    "output": "stderr",
+    "file": {
+      "enabled": false,
+      "path": "/var/log/polaris-device-subclient/app.log",
+      "max_size_bytes": 10485760,
+      "backup_count": 5
+    },
+    "redact_patterns": ["*key*", "*token*", "*secret*", "*password*"]
+  }
+}
