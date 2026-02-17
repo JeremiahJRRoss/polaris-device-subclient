@@ -46,8 +46,7 @@ It is designed to be paired with a log collection agent; such as Cribl Edge, Vec
 - It does not manage file compression or retention — that's `logrotate`'s job
 - It does not buffer or retry failed deliveries — your agent does that with years of production hardening behind it
 
-**Why this design?** The only thing no off-the-shelf tool can do is speak the Polaris GraphQL subscription protocol. Everything else — durable delivery, retry, buffering, compression, routing — is a solved problem. Polaris Device Subclient does the one custom thing and hands off to tools that are better at the rest.
-
+**Why this design?** The only thing that the log collection agents can't do is manage the Polaris GraphQL websocket based subscription. Everything else — durable delivery, retry, buffering, compression, routing — is a solved problem. Polaris Device Subclient simply maintains the subscription connection and then writes push notifications to file. 
 ---
 
 ## 2. Requirements
