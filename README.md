@@ -63,11 +63,12 @@ The only thing that the log collection agents can't do is manage the Polaris Gra
 
 | Agent | Notes |
 |-------|-------|
+| Cribl Edge | Tails NDJSON files, routes to any destination |
+| Vector | Can tail files or read from stdin |
 | Filebeat | Tails NDJSON files, ships to Elasticsearch, Logstash, or Kafka |
 | Splunk Universal Forwarder | Tails NDJSON files, ships to Splunk indexers |
-| Cribl Edge | Tails NDJSON files, routes to any destination |
 | Fluent Bit | Can tail files or read from stdin |
-| Vector | Can tail files or read from stdin |
+
 
 **Credentials:** A Polaris API key (Personal Access Token) from Point One Navigation
 
@@ -184,16 +185,9 @@ Files ending in `.ndjson` (without `.active`) are complete and safe for your age
 
 Point your agent at `/var/lib/polaris/data/*.ndjson` to begin collecting events.
 
-### Splunk Universal Forwarder
+### Cribl Edge
 
-Add to `inputs.conf`:
-
-```ini
-[monitor:///var/lib/polaris/data/*.ndjson]
-disabled = false
-sourcetype = polaris:device:statechange
-index = main
-```
+Add a **File Monitor** source pointing to `/var/lib/polaris/data/*.ndjson*`.
 
 ### Filebeat
 
@@ -203,14 +197,25 @@ Add to `filebeat.yml`:
 filebeat.inputs:
   - type: log
     paths:
-      - /var/lib/polaris/data/*.ndjson
+      - /var/lib/polaris/data/*.ndjson*
     json.keys_under_root: true
     json.add_error_key: true
 ```
 
-### Cribl Edge
 
-Add a **File Monitor** source pointing to `/var/lib/polaris/data/*.ndjson`.
+
+### Splunk Universal Forwarder
+
+Add to `inputs.conf`:
+
+```ini
+[monitor:///var/lib/polaris/data/*.ndjson*]
+disabled = false
+sourcetype = polaris:device:statechange
+index = main
+```
+
+
 
 ### Set Up File Cleanup
 
