@@ -83,8 +83,9 @@ python3 --version
 
 ```bash
 git clone https://github.com/yourorg/polaris-pipeline.git
-cd polaris-pipeline
-sudo ./scripts/install.sh
+cd polaris-pipeline/scripts
+sudo chmod +x install.sh
+sudo ./install.sh
 ```
 
 The installer is safe to re-run — it won't overwrite existing configuration or credentials. It creates a `polaris` service user, installs the application in a Python virtual environment at `/opt/polaris-device-subclient/`, copies configuration templates, and sets up the systemd service.
