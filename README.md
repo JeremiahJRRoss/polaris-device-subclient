@@ -17,7 +17,7 @@
 8. [Managing Credentials](#8-managing-credentials)
 9. [Monitoring & Logs](#9-monitoring--logs)
 10. [Understanding the Output](#10-understanding-the-output)
-11. [Splunk Searches](#11-splunk-searches)
+11. For future references to systems of analysis 
 12. [Troubleshooting](#12-troubleshooting)
 13. [Maintenance](#13-maintenance)
 14. [Command Reference](#14-command-reference)
@@ -571,36 +571,8 @@ These are never silently dropped. They appear in your output alongside normal ev
 Files with `.active` suffix are being written. Don't move or delete them. Files ending in `.ndjson` (no `.active`) are complete and ready for your collection agent.
 
 ---
-
-## 11. Splunk Searches
-
-Once events reach Splunk, some useful searches:
-
-```spl
-# All device state changes
-sourcetype="polaris:device:statechange" event_type="state_change"
-
-# Latest state per device
-sourcetype="polaris:device:statechange" event_type="state_change"
-| stats latest(current_state) as state latest(timestamp) as last_seen by device_id
-
-# Devices that connected in the last hour
-sourcetype="polaris:device:statechange" event_type="state_change" current_state="CONNECTED"
-| where _time > relative_time(now(), "-1h")
-| table timestamp device_id previous_state latitude longitude
-
-# State transitions
-sourcetype="polaris:device:statechange" event_type="state_change"
-| where previous_state!=current_state
-| table timestamp device_id device_label previous_state current_state
-
-# Data quality — malformed events
-sourcetype="polaris:device:statechange" event_type="malformed"
-| stats count by error.code
-```
-
+11. Intentionally left blank
 ---
-
 ## 12. Troubleshooting
 
 ### Service won't start
