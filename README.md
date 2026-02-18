@@ -42,7 +42,7 @@ It is designed to be paired with a log collection agent; such as Cribl Edge, Vec
 
 **What Polaris Device Subclient does not do:**
 
-- It does not deliver data to Splunk or Elasticsearch directly — that's your collection agent's job
+- It does not deliver data directly to your data lake, aggregator, or system of analysis — that's your collection agent's job
 - It does not manage file compression or retention — that's `logrotate`'s job
 - It does not buffer or retry failed deliveries — your agent does that with years of production hardening behind it
 
